@@ -78,10 +78,11 @@ export default function TodoList(){
                             : <span id="spant">{todo.task}</span>
                         } */}
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button  id="delbtn" onClick={()=>deleteTodo(todo.id)}>Delete</button>
-                    <button  onClick={()=>upperCaseOne(todo.id)}>UpperCase</button>
-                 
-                    <button  onClick={()=>markOneDone(todo.id)}>Mark as Done</button>
+                    <div className="div-i">
+                    <span onClick={()=>deleteTodo(todo.id)} className="material-symbols-outlined">delete</span>
+                    <span onClick={()=>upperCaseOne(todo.id)} className="material-symbols-outlined">Uppercase</span> 
+                    <span  onClick={()=>markOneDone(todo.id) }className="material-symbols-outlined">task_alt</span>  
+                    </div>
                 </li>))}
             </ul>
       
