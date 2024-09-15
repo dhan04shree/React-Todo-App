@@ -65,7 +65,7 @@ export default function TodoList(){
     return (
         <div>
             <h1>Todo task</h1>
-            <input type="text"  value={newTodo} onChange={updateTodoValue}/>
+            <input type="text" placeholder="exercise" value={newTodo} onChange={updateTodoValue}/>
             <button className="outerbtn" onClick={addNewTask}>Add Task</button>
             <ul>
                 {
