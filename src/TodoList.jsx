@@ -15,9 +15,6 @@ export default function TodoList(){
         setNewTodo(event.target.value);
         // console.log(event.target.value)
     }
-    let deleteTodo = (id)=>{
-        setTodos((prevTodos)=> prevTodos.filter((todo)=> todo.id != id));
-    }
     let upperCaseAll = ()=>{
         setTodos((prevTodos)=>
             prevTodos.map((todo)=>{
@@ -29,15 +26,11 @@ export default function TodoList(){
         //     return{...todo,task:todo.task.toUpperCase()}
         // }));
     }
-    let upperCaseOne = (id)=>{
+    let markAllDone = ()=>{
         setTodos((prevTodos)=>
             prevTodos.map((todo)=>{
-                if(todo.id == id){
-                   
-                    return{...todo,task:todo.task.toUpperCase()};
-                }else{
-                    return todo;
-                }
+                    // todo.isDone= true;
+                        return({...todo,isDone:true}) 
             })
         )
     }
@@ -54,19 +47,26 @@ export default function TodoList(){
             })
         )
     }
-    let markAllDone = ()=>{
+    let upperCaseOne = (id)=>{
         setTodos((prevTodos)=>
             prevTodos.map((todo)=>{
-                    // todo.isDone= true;
-                        return({...todo,isDone:true}) 
+                if(todo.id == id){
+                   
+                    return{...todo,task:todo.task.toUpperCase()};
+                }else{
+                    return todo;
+                }
             })
         )
+    }
+    let deleteTodo = (id)=>{
+        setTodos((prevTodos)=> prevTodos.filter((todo)=> todo.id != id));
     }
     return (
         <div>
             <h1>Todo task</h1>
-            <input type="text" placeholder="exercise" value={newTodo} onChange={updateTodoValue}/>
-            <button className="outerbtn" onClick={addNewTask}>Add Task</button>
+            <button className="outerbtn" onClick={upperCaseAll}>UpperCase All</button>
+            <button className="outerbtn" onClick={markAllDone}>Mark all Done</button>
             <ul>
                 {
                 todos.map((todo)=>(
@@ -85,9 +85,9 @@ export default function TodoList(){
                     </div>
                 </li>))}
             </ul>
-      
-            <button className="outerbtn" onClick={upperCaseAll}>UpperCase All</button>
-            <button className="outerbtn" onClick={markAllDone}>Mark all Done</button>
+            <input type="text" placeholder="exercise" value={newTodo} onChange={updateTodoValue}/>
+            <button className="outerbtn" onClick={addNewTask}>Add Task</button>
+
         </div>
     )
 }
