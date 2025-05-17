@@ -1,74 +1,72 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  color-scheme: light dark;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-#main{
-  height:auto;
-  background-color: #00000073;
-}
-.group h2{
-  font-size: 0.6em;
-  font-weight: 200;
+body{
+  height: 100%;
+   background: linear-gradient(to bottom,#0b0b0b,#041523,#142330);
+ font-family: "Montserrat", sans-serif;
 }
 #taskdiv{
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(auto,1fr));
-  grid-template-rows: auto auto;
-  grid-gap: 41px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 #root{
- 
   padding: 0;
 }
-body {
- background:url(kurt-wang-J9Z67z9C3PQ-unsplash.jpg);
-  background-size:cover;
-  margin: 0;
+.searchdiv{
+  text-align: center;
 }
 .group{
-  background-color: #00000071;
+  /* text-align: center; */
+  width: 30%;
+  min-height: 10rem;
+  background-color:#0623396e;
+  border: 1px solid #3b5f7e;
+  /* background: linear-gradient(to bottom,#213547,#000); */
+  margin: 20px;
+  padding: 20px;
+  transition: all 0.1s;
 }
-.group h1{
-  padding:0;
-  font-size: 0.8em;
-  line-height: 0;
-  color: #000;
-  text-shadow: 0 0 1px #fff,0 0 2px #fff;
+.group:hover{
+  border: 1px solid #fff;
 }
 #heading{
   line-height: 1.1;
   margin:0;
   padding-top: 20px;
   padding-bottom: 30px;
-  text-shadow: 0 0 3px #fff,0 0 5px #0000ff;
+  font-weight: 900;
+  font-size: 3.1rem;
+  text-shadow: 0 0 3px #fff,0 0 5px #0040ff;
 }
-.div-i span{
-  font-size: 26px;
+.div-i {
+  /* font-size: 26px; */
+  /* font-size: 2rem; */
   margin-left: 20px;
-  cursor: pointer;
-  text-shadow: 0 0 1px #fff,0 0 5px #0000ff;
+  display: flex;
+  align-items: center;
+  min-width:80%;
+  /* text-shadow: 0 0 1px #fff,0 0 5px #0000ff; */
 }
-.div-i span:hover{
-  text-shadow: 0 0 4px #fff,0 0 5px #0000ff;
+span{
+  border-radius: 9px;
+  font-size: 1.3rem;
+  color:aliceblue;
+  /* font-weight: 600; */
 }
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.2em 0.6em;
+  padding: 0.5rem 1.1rem;
   font-size: 1em;
   font-family: inherit;
-  background-color:#2f4c66;
+background-color: aliceblue;
   cursor: pointer;
   transition: border-color 0.25s;
   margin-left: 10px;
-  background-image: linear-gradient(#000000,#503a09);
+
 }
 button:hover {
+  background-color:#f0f8ffc7;;
   border-color: #fff;
 }
 button:focus,
@@ -78,32 +76,47 @@ button:focus-visible {
 li{
   list-style: none;
   margin-top: 20px;
-  border-radius: 0.6rem;
+  border-radius: 0.4rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  border:solid 1px #213547;
-  justify-content: space-evenly;
+  border:solid 1px #fff;
+  justify-content: space-around ;
+  background-color: #315270;
+}
+.icon{
+  scale: 1.1;
+}
+.icon:hover{
+  transition: all 0.2s;
+  scale: 1.2;
 }
 .div-i{
   margin-top: 4px;
   margin-bottom: 5px;
+}
+.div-i span{
+  margin-left: 2rem;
 }
 .outerbtn{
   margin-top: 20px;
   margin-bottom:22px;
 }
 input{
-  padding: 1px 10px;
-  font-size: 1.5rem;
-  border-radius: 8px;
-}
-span{
-  border-radius: 9px;
-  font-size: 1.5rem;
-  color:#fff;
-  font-weight: 600;
+  padding: 2px 10px;
+  font-size: 1.4rem;
+  border-radius: 5px;
 
+}
+
+
+.group h1 {
+  color:#ebebeb;
+  font-size: 0.8em;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #53545664;
+  font-weight: 300;
+  /* background-color:#041523; */
 }
 ul{
   padding-left: 0;
@@ -111,23 +124,17 @@ ul{
 /* #delbtn{
   margin-left: 7rem;
 } */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 @media (min-width:861px){
   #taskdiv{
     grid-template-columns: repeat(auto-fill,minmax(500px,1fr));
   }
   input{
     margin-bottom: 40px;
+    margin-right: 20px;
+  }
+}
+@media(max-width:700px){
+  .group{
+    width: 100%;
   }
 }

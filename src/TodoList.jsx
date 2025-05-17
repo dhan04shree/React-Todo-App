@@ -1,10 +1,11 @@
-import * as React from 'react';
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Switch from '@mui/material/Switch';
 
 export default function TodoList(){
@@ -16,28 +17,13 @@ export default function TodoList(){
              return [...prevTodos,{task:newTodo , id:uuidv4(),isDone:false,urgent:state.urgent,imp:state.imp}]
         });
         setNewTodo("");
+        setState({
+            urgent:false,
+            imp:false
+        })
     }
     let updateTodoValue =(event)=>{
         setNewTodo(event.target.value);
-    }
-    let upperCaseAll = ()=>{
-        setTodos((prevTodos)=>
-            prevTodos.map((todo)=>{
-                
-                return{...todo,task:todo.task.toUpperCase()};
-            })
-        )
-        setTodos(todos.map((todo)=>{
-            return{...todo,task:todo.task.toUpperCase()}
-        }));
-   }
-    let markAllDone = ()=>{
-        setTodos((prevTodos)=>
-            prevTodos.map((todo)=>{
-                    // todo.isDone= true;
-                        return({...todo,isDone:true}) 
-            })
-        )
     }
     let markOneDone = (id)=>{
         setTodos((prevTodos)=>
@@ -45,19 +31,7 @@ export default function TodoList(){
                 if(todo.id == id){
                     // todo.isDone = true;
                     // console.log("if",todo.isDone)
-                    return{...todo,isDone:true};
-                }else{
-                    return todo;
-                }
-            })
-        )
-    }
-    let upperCaseOne = (id)=>{
-        setTodos((prevTodos)=>
-            prevTodos.map((todo)=>{
-                if(todo.id == id){
-                   
-                    return{...todo,task:todo.task.toUpperCase()};
+                    return{...todo,isDone:!todo.isDone};
                 }else{
                     return todo;
                 }
@@ -67,7 +41,7 @@ export default function TodoList(){
     let deleteTodo = (id)=>{
         setTodos((prevTodos)=> prevTodos.filter((todo)=> todo.id != id));
     }
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         urgent: false,
         imp: false,
         
@@ -79,97 +53,129 @@ export default function TodoList(){
         });
       };
     return (
-        <div id="main">
-            <h1 id='heading'>TODO APP</h1>
-            <input id="inpT" type="text" placeholder="exercise" value={newTodo} onChange={updateTodoValue}/>
+        <div id="main-container">
+            <h1 id='heading' style={{textAlign:"center"}}>TODO APP</h1>
+            <div className='searchdiv'>
+                 <input id="inpT" type="text" placeholder="add tasks.." value={newTodo} onChange={updateTodoValue} required/>
             &nbsp;&nbsp;&nbsp;
             <FormGroup sx={{display:'inline'}}>
             <FormControlLabel
             control={
-                <Switch checked={state.urgent} onChange={handleChange} name="urgent" color='warning' />
+                <Switch checked={state.urgent} onChange={handleChange} name="urgent" sx={{
+                        color: 'white', 
+                        '&.Mui-checked': {
+                        color: '#3b5f7e',
+                        },
+                        '& .MuiSwitch-track': {
+                        backgroundColor: 'white', 
+                        opacity: 0.1,
+                        },
+                        '& .Mui-checked + .MuiSwitch-track': {
+                        backgroundColor: '#3b5f7e',
+                        opacity: 0.3,
+                        },
+                        }} />
             }label="Urgency"/>
             &nbsp;&nbsp;&nbsp;
             <FormControlLabel
             control={
-                <Switch checked={state.imp} onChange={handleChange} name="imp"color='warning' />
+                <Switch checked={state.imp} onChange={handleChange} name="imp"   sx={{
+                        color: 'white', 
+                        '&.Mui-checked': {
+                        color: '#3b5f7e', 
+                        },
+                        '& .MuiSwitch-track': {
+                        backgroundColor: 'white', 
+                        opacity: 0.1,
+                        },
+                        '& .Mui-checked + .MuiSwitch-track': {
+                        backgroundColor: '#3b5f7e', 
+                        opacity: 0.3,
+                        },
+                        }}
+                />
             }label="Importance"
             />
             </FormGroup>
-            {/* <Switch {...label} defaultChecked color="default"/> */}
             <button className="outerbtn" onClick={addNewTask}>Add Task</button>
-            <button className="outerbtn" onClick={upperCaseAll}>UpperCase All</button>
-            <button className="outerbtn" onClick={markAllDone}>Mark all Done</button>
+            </div>
 
             <div id='taskdiv'>
+
                 <span className='group'>
-                    <h1>Do</h1>
-                    <h2>Urgent and Imp</h2>    
-            <ul>
+                <h1>Urgent And Important</h1>
+                <ul>
                 {
                 todos.map((todo)=>(
                   todo.urgent && todo.imp &&      
                 <li key={todo.id} >
-                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   
                     <div className="div-i">
-                    <span onClick={()=>upperCaseOne(todo.id)} className="material-symbols-outlined">Uppercase</span>
-                    <span  onClick={()=>markOneDone(todo.id) }className="material-symbols-outlined">task_alt</span>
-                    <span onClick={()=>deleteTodo(todo.id)} className="material-symbols-outlined">delete</span>
+                    {todo.isDone ? <CheckBoxIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxIcon> 
+                    : <CheckBoxOutlineBlankIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxOutlineBlankIcon>
+                }
+                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
                     </div>
+                   <DeleteIcon className='icon' onClick={()=>deleteTodo(todo.id)}  ></DeleteIcon>
                 </li>))}
             </ul>
                 </span>
+
                 <span className='group'>
-                <h1>Delegate</h1>
-                    <h2>Urgent but not imp</h2>
+                <h1>Urgent But Not Important</h1>
                     <ul>
                 {
                 todos.map((todo)=>(
                   todo.urgent && !todo.imp &&      
                 <li key={todo.id} >
-                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   
                     <div className="div-i">
-                    <span onClick={()=>upperCaseOne(todo.id)} className="material-symbols-outlined">Uppercase</span>
-                    <span  onClick={()=>markOneDone(todo.id) }className="material-symbols-outlined">task_alt</span>
-                    <span onClick={()=>deleteTodo(todo.id)} className="material-symbols-outlined">delete</span>
+                    {todo.isDone ? <CheckBoxIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxIcon> 
+                    : <CheckBoxOutlineBlankIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxOutlineBlankIcon>
+                }
+                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
                     </div>
+                   <DeleteIcon className='icon' onClick={()=>deleteTodo(todo.id)}  ></DeleteIcon>
                 </li>))}
             </ul>
                 </span>
+
+
                 <span className='group'>
-                <h1>Schedule</h1>
-                    <h2>Not urgent but imp</h2>
+                <h1>Not Urgent But Important</h1>
                     <ul>
                 {
                 todos.map((todo)=>(
                   !todo.urgent && todo.imp &&      
                 <li key={todo.id} >
-                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   
                     <div className="div-i">
-                    <span onClick={()=>upperCaseOne(todo.id)} className="material-symbols-outlined">Uppercase</span>
-                    <span  onClick={()=>markOneDone(todo.id) }className="material-symbols-outlined">task_alt</span>
-                    <span onClick={()=>deleteTodo(todo.id)} className="material-symbols-outlined">delete</span>
+                    {todo.isDone ? <CheckBoxIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxIcon> 
+                    : <CheckBoxOutlineBlankIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxOutlineBlankIcon>
+                }
+                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
                     </div>
+                   <DeleteIcon className='icon' onClick={()=>deleteTodo(todo.id)}  ></DeleteIcon>
                 </li>))}
             </ul>
                 </span>
+
+
                 <span className='group'>
-                <h1>Eliminate</h1>
-                    <h2>Not urgent not imp</h2>
+                <h1> Not Urgent Not Important</h1>
                     <ul>
                 {
                 todos.map((todo)=>(
                   !todo.urgent && !todo.imp &&      
                 <li key={todo.id} >
-                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   
                     <div className="div-i">
-                    <span onClick={()=>upperCaseOne(todo.id)} className="material-symbols-outlined">Uppercase</span>
-                    <span  onClick={()=>markOneDone(todo.id) }className="material-symbols-outlined">task_alt</span>
-                    <span onClick={()=>deleteTodo(todo.id)} className="material-symbols-outlined">delete</span>
+                    {todo.isDone ? <CheckBoxIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxIcon> 
+                    : <CheckBoxOutlineBlankIcon className='icon' onClick={()=>markOneDone(todo.id) }></CheckBoxOutlineBlankIcon>
+                }
+                <span style={todo.isDone ? {textDecorationLine:"line-through"} :{}}>{todo.task}</span>
                     </div>
+                   <DeleteIcon className='icon' onClick={()=>deleteTodo(todo.id)}  ></DeleteIcon>
                 </li>))}
             </ul>
                 </span>
