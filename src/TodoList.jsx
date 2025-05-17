@@ -9,7 +9,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Switch from '@mui/material/Switch';
 
 export default function TodoList(){
-    let [todos,setTodos] = useState([{task : "code",id : uuidv4(),isDone:false,urgent:true,imp:true}]);
+    let [todos,setTodos] = useState([{task : "Code",id : uuidv4(),isDone:false,urgent:true,imp:true}]);
     let [newTodo,setNewTodo] = useState("");
     let addNewTask = ()=>{
         // setTodos([...todos,{task:newTodo , id:uuidv4()}]);
@@ -56,7 +56,7 @@ export default function TodoList(){
         <div id="main-container">
             <h1 id='heading' style={{textAlign:"center"}}>TODO APP</h1>
             <div className='searchdiv'>
-                 <input id="inpT" type="text" placeholder="add tasks.." value={newTodo} onChange={updateTodoValue} required/>
+                 <input style={{padding:"0.4rem 0.8rem",fontSize:"1.2rem",marginBottom:"2rem",background:"aliceblue"}} type="text" placeholder="Exercise" value={newTodo} onChange={updateTodoValue} required/>
             &nbsp;&nbsp;&nbsp;
             <FormGroup sx={{display:'inline'}}>
             <FormControlLabel

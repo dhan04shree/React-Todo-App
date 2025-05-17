@@ -35,7 +35,7 @@ body{
   padding-top: 20px;
   padding-bottom: 30px;
   font-weight: 900;
-  font-size: 3.1rem;
+  font-size: 2.1rem;
   text-shadow: 0 0 3px #fff,0 0 5px #0040ff;
 }
 .div-i {
@@ -108,8 +108,6 @@ input{
   border-radius: 5px;
 
 }
-
-
 .group h1 {
   color:#ebebeb;
   font-size: 0.8em;
